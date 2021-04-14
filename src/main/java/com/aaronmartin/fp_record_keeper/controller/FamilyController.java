@@ -1,6 +1,7 @@
 package com.aaronmartin.fp_record_keeper.controller;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,6 @@ public class FamilyController {
 
 	@GetMapping("/families")
 	public List<Family> get() {
-		System.out.println("get families called");
 		return service.listAll();
 	}
 
@@ -31,7 +31,7 @@ public class FamilyController {
 	public ResponseEntity<Family> get(@PathVariable Integer id) {
 		try {
 			return new ResponseEntity<Family>(service.get(id), HttpStatus.OK);
-		} catch (Exception e) {
+		} catch (NoSuchElementException e) {
 			return new ResponseEntity<Family>(HttpStatus.NOT_FOUND);
 		}
 
@@ -48,7 +48,7 @@ public class FamilyController {
 			service.get(id);
 			service.save(family);
 			return new ResponseEntity<>(HttpStatus.OK);
-		} catch (Exception e) {
+		} catch (NoSuchElementException e) {
 			return new ResponseEntity<Family>(HttpStatus.NOT_FOUND);
 		}
 	}
