@@ -82,4 +82,11 @@ class FamilyControllerTest {
 		verify(service).get(mockId);
 		verify(service, never()).save(mockFamily);
 	}
+
+	@Test
+	void test_delete() {
+		Integer mockId = Integer.valueOf(1);
+		controller.delete(mockId);
+		verify(service).delete(mockId);
+	}
 }
